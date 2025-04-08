@@ -54,6 +54,39 @@ def validate_positive_float(value):
         print("Entrada inválida. Por favor, insira um número positivo.")
         return None
 
+# Função para resetar o banco de dados
+def resetar_banco_de_dados():
+    confirmacao = input("Tem certeza que deseja resetar o banco de dados? Todos os dados serão perdidos. (s/n): ").strip().lower()
+    if confirmacao == 's':
+        with sqlite3.connect("Games.db") as conexao:
+            cursor = conexao.cursor()
+            cursor.execute("DROP TABLE IF EXISTS personagens")
+            cursor.execute('''
+                CREATE TABLE personagens (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    classe_personagem TEXT NOT NULL,
+                    armadura_equipamento TEXT NOT NULL,
+                    arma_equipamento TEXT NOT NULL,
+                    ouro REAL NOT NULL
+                )
+            ''')
+
+            personagens = [
+                ("Guerreiro", "Metal", "Espada&Escudo", 150),
+                ("Mago", "Tecido", "Cajado&Pergaminhos", 180),
+                ("Arqueiro", "Pele", "Arco&Flechas", 195),
+                ("Assassino", "Couro", "Rapieira&Adagas", 165)
+            ]
+
+            cursor.executemany('''
+                INSERT INTO personagens(classe_personagem, armadura_equipamento, arma_equipamento, ouro) VALUES (?, ?, ?, ?)
+            ''', personagens)
+
+            conexao.commit()
+            print("Banco de dados resetado com sucesso e valores padrão restaurados!")
+    else:
+        print("Operação cancelada.")
+
 # Função principal que exibe o menu e gerencia as opções
 def menu():
     while True:
@@ -63,6 +96,7 @@ def menu():
         print("3 - Atualizar personagem")
         print("4 - Deletar personagem")
         print("5 - Buscar personagem por classe")
+        print("6 - Resetar banco de dados")
         print("s - Sair do sistema")
 
         # Captura a escolha do usuário, removendo espaços e convertendo para minúsculas
@@ -79,6 +113,8 @@ def menu():
             deletar_personagem()
         elif escolha == "5":
             buscar_personagem()
+        elif escolha == "6":
+            resetar_banco_de_dados()
         elif escolha == "s":
             print("Saindo do sistema...")
             break
