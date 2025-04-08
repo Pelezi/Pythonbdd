@@ -3,12 +3,6 @@ import sqlite3
 conexao = sqlite3.connect("Games.db")
 cursor = conexao.cursor()
 
-opcao = input("Deseja excluir a tabela de 'personagens' e refazê-la (S/N)? ").strip().lower()
-
-if opcao == "s":
-    cursor.execute("DROP TABLE IF EXISTS personagens")
-    print("Tabela 'personagens' excluída com sucesso!")
-
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS personagens (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -18,28 +12,28 @@ CREATE TABLE IF NOT EXISTS personagens (
     ouro REAL NOT NULL
 )
 ''')
-print("Tabela 'personagens' criada com sucesso!")
 
-personagens = [
-    ("Guerreiro", "Metal", "Espada&Escudo", 150),
-    ("Mago", "Tecido", "Cajado&Pergaminhos", 180),
-    ("Arqueiro", "Pele", "Arco&Flechas", 195),
-    ("Assassino", "Couro", "Rapieira&Adagas", 165)
-]
+cursor.execute("SELECT * FROM personagens")
+personagens = cursor.fetchall()  
+if not personagens:  # Verifica se a tabela está vazia
+    print("Tabela vazia, criando personagens padrão...")
 
-cursor.executemany('''
-INSERT INTO personagens(classe_personagem, armadura_equipamento, arma_equipamento, ouro) VALUES (?, ?, ?, ?)
-''', personagens)
+    personagens = [
+        ("Guerreiro", "Metal", "Espada&Escudo", 150),
+        ("Mago", "Tecido", "Cajado&Pergaminhos", 180),
+        ("Arqueiro", "Pele", "Arco&Flechas", 195),
+        ("Assassino", "Couro", "Rapieira&Adagas", 165)
+    ]
 
-print("Personagens criados com sucesso!")
+    cursor.executemany('''
+    INSERT INTO personagens(classe_personagem, armadura_equipamento, arma_equipamento, ouro) VALUES (?, ?, ?, ?)
+    ''', personagens)
+
+    print("Personagens criados com sucesso!")
 
 conexao.commit()
 conexao.close()
 print("Conexão com o banco de dados encerrada.")
-
-
-# Importa a biblioteca SQLite para manipulação do banco de dados
-import sqlite3
 
 # Loop de inicialização do sistema - aguarda o usuário pressionar 'i' para começar
 while True:
@@ -48,6 +42,17 @@ while True:
         break  # Sai do loop quando o usuário pressiona 'i'
     else:
         print("Entrada inválida. Pressione 'i' para iniciar.")
+
+# Função para validar entradas numéricas positivas
+def validate_positive_float(value):
+    try:
+        value = float(value)
+        if value < 0:
+            raise ValueError("O valor deve ser positivo.")
+        return value
+    except ValueError:
+        print("Entrada inválida. Por favor, insira um número positivo.")
+        return None
 
 # Função principal que exibe o menu e gerencia as opções
 def menu():
@@ -85,7 +90,6 @@ def listar_personagens():
     with sqlite3.connect("Games.db") as conexao:
         cursor = conexao.cursor()
 
-
         # Executa a consulta SQL para selecionar todos os registros da tabela
         cursor.execute("SELECT * FROM personagens")
         personagens = cursor.fetchall()  # Recupera todos os resultados da consulta
@@ -106,7 +110,12 @@ def criar_personagem():
     classe = input("Classe do personagem (ex: Guerreiro, Mago): ")
     armadura = input("Tipo de armadura (ex: Metal, Couro): ")
     arma = input("Arma principal (ex: Espada, Cajado): ")
-    ouro = float(input("Quantidade de ouro inicial: "))
+
+    while True:
+        ouro = input("Quantidade de ouro inicial: ")
+        ouro = validate_positive_float(ouro)
+        if ouro is not None:
+            break
 
     with sqlite3.connect("Games.db") as conexao:
         cursor = conexao.cursor()
@@ -123,30 +132,45 @@ def criar_personagem():
 def atualizar_personagem():
     listar_personagens()
 
-    id_pers = input("\nID do personagem que deseja atualizar: ")
+    while True:
+        id_pers = input("\nID do personagem que deseja atualizar (ou digite 'sair' para voltar ao menu): ").strip().lower()
+        if id_pers == 'sair':
+            print("Voltando ao menu principal...")
+            return
+
+        with sqlite3.connect("Games.db") as conexao:
+            cursor = conexao.cursor()
+            cursor.execute("SELECT * FROM personagens WHERE id=?", (id_pers,))
+            if cursor.fetchone():
+                break
+            else:
+                print("ID inválido. Por favor, insira um ID existente ou digite 'sair' para voltar ao menu.")
 
     print("\nDeixe em branco os campos que não deseja alterar:")
     nova_classe = input("Nova classe: ")
     nova_armadura = input("Nova armadura: ")
     nova_arma = input("Nova arma: ")
-    novo_ouro = input("Novo valor de ouro: ")
+
+    while True:
+        novo_ouro = input("Novo valor de ouro: ")
+        if not novo_ouro:
+            break
+        novo_ouro = validate_positive_float(novo_ouro)
+        if novo_ouro is not None:
+            break
 
     with sqlite3.connect("Games.db") as conexao:
         cursor = conexao.cursor()
 
         # Atualiza cada campo apenas se foi fornecido um novo valor
         if nova_classe:
-            cursor.execute("UPDATE personagens SET classe_personagem=? WHERE id=?",
-                         (nova_classe, id_pers))
+            cursor.execute("UPDATE personagens SET classe_personagem=? WHERE id=?", (nova_classe, id_pers))
         if nova_armadura:
-            cursor.execute("UPDATE personagens SET armadura_equipamento=? WHERE id=?",
-                         (nova_armadura, id_pers))
+            cursor.execute("UPDATE personagens SET armadura_equipamento=? WHERE id=?", (nova_armadura, id_pers))
         if nova_arma:
-            cursor.execute("UPDATE personagens SET arma_equipamento=? WHERE id=?",
-                         (nova_arma, id_pers))
+            cursor.execute("UPDATE personagens SET arma_equipamento=? WHERE id=?", (nova_arma, id_pers))
         if novo_ouro:
-            cursor.execute("UPDATE personagens SET ouro=? WHERE id=?",
-                         (float(novo_ouro), id_pers))
+            cursor.execute("UPDATE personagens SET ouro=? WHERE id=?", (novo_ouro, id_pers))
 
         conexao.commit()  # Confirma as alterações
         print("Personagem atualizado com sucesso!")
@@ -155,13 +179,25 @@ def atualizar_personagem():
 def deletar_personagem():
     listar_personagens()
 
-    id_pers = input("\nID do personagem que deseja deletar: ")
+    while True:
+        id_pers = input("\nID do personagem que deseja deletar: ")
+        with sqlite3.connect("Games.db") as conexao:
+            cursor = conexao.cursor()
+            cursor.execute("SELECT * FROM personagens WHERE id=?", (id_pers,))
+            if cursor.fetchone():
+                break
+            else:
+                print("ID inválido. Por favor, insira um ID existente.")
 
-    with sqlite3.connect("Games.db") as conexao:
-        cursor = conexao.cursor()
-        cursor.execute("DELETE FROM personagens WHERE id=?", (id_pers,))
-        conexao.commit()
-        print("Personagem deletado com sucesso!")
+    confirmacao = input("Tem certeza que deseja deletar este personagem? (s/n): ").strip().lower()
+    if confirmacao == 's':
+        with sqlite3.connect("Games.db") as conexao:
+            cursor = conexao.cursor()
+            cursor.execute("DELETE FROM personagens WHERE id=?", (id_pers,))
+            conexao.commit()
+            print("Personagem deletado com sucesso!")
+    else:
+        print("Operação cancelada.")
 
 # Função para buscar personagens por classe (ou parte do nome da classe)
 def buscar_personagem():
