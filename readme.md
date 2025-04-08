@@ -1,7 +1,11 @@
 # **Sistema de RPG com Banco de Dados SQLite**
 
-**Alunos:** Alessandro Cardoso da Costa,  Maíra Fernando da Silva, Victor José Cavalcante da Silva, João Augusto de Brito Silva 
-**Matrícula:** 202051317043, 202402412141, 202403521938, 202402412116
+| **Aluno**                     | **Matrícula**     |
+|-------------------------------|-------------------|
+| Alessandro Cardoso da Costa   | 202051317043      |
+| Maíra Fernando da Silva       | 202402412141      |
+| Victor José Cavalcante da Silva | 202403521938    |
+| João Augusto de Brito Silva   | 202402412116      |
 
 ## **1\. Descrição do Projeto**
 
@@ -41,20 +45,22 @@ Este projeto é um sistema de gerenciamento de personagens de RPG, desenvolvido 
 
 ## **4\. Prints do Sistema**
 
-* Deletando o banco de dados:  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/exclusa_banco.png)  
 * Pressionado i : mostra menu de opções	![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/inicio.png)  
-* Listagem dos personagens  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/lista_de_personagens.png)
   
-
-
-* Tela de criação  
+* Listagem dos personagens:  
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/lista_de_personagens.png)
+* Tela de criação de um novo personagem:  
   ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/criacao_novo_personagem.png)
-* Tela de atualização  
+* Tela de atualização de um personagem:  
   ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/atualizacao_de_personagem.png)
-* Resultado da busca  
+* Tela de exclusão de um personagem:  
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/exclusao_de_personagem.png)
+* Busca de um personagem:  
   ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/busca_de_personagem.png)
+* Resetando o banco de dados:  
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/exclusa_banco.png)  
+* Sair do sistema:  
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/sair_do_sistema.png)
 
 ---
 

@@ -33,7 +33,6 @@ if not personagens:  # Verifica se a tabela está vazia
 
 conexao.commit()
 conexao.close()
-print("Conexão com o banco de dados encerrada.")
 
 # Loop de inicialização do sistema - aguarda o usuário pressionar 'i' para começar
 while True:
