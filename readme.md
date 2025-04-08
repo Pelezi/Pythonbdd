@@ -1,7 +1,7 @@
 # **Sistema de RPG com Banco de Dados SQLite**
 
-**Alunos:** Alessandro Cardoso da Costa,  Maíra Fernando da Silva, Victor José Cavalcante da Silva  
-**Matrícula:** 202051317043, 202402412141, 202403521938 
+**Alunos:** Alessandro Cardoso da Costa,  Maíra Fernando da Silva, Victor José Cavalcante da Silva, João Augusto de Brito Silva 
+**Matrícula:** 202051317043, 202402412141, 202403521938, 202402412116
 
 ## **1\. Descrição do Projeto**
 
