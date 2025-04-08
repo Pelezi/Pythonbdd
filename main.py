@@ -1,18 +1,42 @@
 import sqlite3
 
-# Conexão com o banco de dados
-conexao = sqlite3.connect('meubanco.db')
+conexao = sqlite3.connect("Games.db")
 cursor = conexao.cursor()
 
-# Criar a tabela de usuários
+opcao = input("Deseja excluir a tabela de 'personagens' e refazê-la (S/N)? ").strip().lower()
+
+if opcao == "s":
+    cursor.execute("DROP TABLE IF EXISTS personagens")
+    print("Tabela 'personagens' excluída com sucesso!")
+
 cursor.execute('''
-CREATE TABLE IF NOT EXISTS usuarios (
+CREATE TABLE IF NOT EXISTS personagens (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE
+    classe_personagem TEXT NOT NULL,
+    armadura_equipamento TEXT NOT NULL,
+    arma_equipamento TEXT NOT NULL,
+    ouro REAL NOT NULL
 )
 ''')
+print("Tabela 'personagens' criada com sucesso!")
+
+personagens = [
+    ("Guerreiro", "Metal", "Espada&Escudo", 150),
+    ("Mago", "Tecido", "Cajado&Pergaminhos", 180),
+    ("Arqueiro", "Pele", "Arco&Flechas", 195),
+    ("Assassino", "Couro", "Rapieira&Adagas", 165)
+]
+
+cursor.executemany('''
+INSERT INTO personagens(classe_personagem, armadura_equipamento, arma_equipamento, ouro) VALUES (?, ?, ?, ?)
+''', personagens)
+
+print("Personagens criados com sucesso!")
+
 conexao.commit()
+conexao.close()
+print("Conexão com o banco de dados encerrada.")
+
 
 # Importa a biblioteca SQLite para manipulação do banco de dados
 import sqlite3
