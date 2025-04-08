@@ -48,19 +48,19 @@ Este projeto é um sistema de gerenciamento de personagens de RPG, desenvolvido 
 * Pressionado i : mostra menu de opções	![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/inicio.png)  
   
 * Listagem dos personagens:  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/lista_de_personagens.png)
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/main/prints/lista_de_personagens.png)
 * Tela de criação de um novo personagem:  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/criacao_novo_personagem.png)
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/main/prints/criacao_novo_personagem.png)
 * Tela de atualização de um personagem:  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/atualizacao_de_personagem.png)
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/main/prints/atualizacao_de_personagem.png)
 * Tela de exclusão de um personagem:  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/exclusao_de_personagem.png)
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/main/prints/exclusao_de_personagem.png)
 * Busca de um personagem:  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/busca_de_personagem.png)
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/main/prints/busca_de_personagem.png)
 * Resetando o banco de dados:  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/exclusa_banco.png)  
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/main/prints/exclusa_banco.png)  
 * Sair do sistema:  
-  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/8e40adfabf980d580e283c745090c6a6f251c7da/prints/sair_do_sistema.png)
+  ![](https://raw.githubusercontent.com/Pelezi/Pythonbdd/main/prints/sair_do_sistema.png)
 
 ---
 
